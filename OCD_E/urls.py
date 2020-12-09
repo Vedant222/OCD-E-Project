@@ -19,13 +19,16 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.urls import path
 from register import views as v
+from django.views.generic.base import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
     path("register/" , v.register),
     path('blog/', include('blog.urls'),),
     path('ckeditor/', include(
         'ckeditor_uploader.urls')),
+        path('', TemplateView.as_view(template_name='home.html'), name='home'), 
 ]+ static(settings.MEDIA_URL, 
            document_root=settings.MEDIA_ROOT)
 

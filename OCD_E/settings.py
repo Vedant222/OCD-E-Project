@@ -45,6 +45,8 @@ INSTALLED_APPS = [
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 MEDIA_URL = '/media/' 
 MEDIA_ROOT = 'media/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
