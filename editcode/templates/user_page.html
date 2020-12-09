@@ -1,0 +1,73 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        
+        
+    </head>
+
+    <body>
+        <br>
+        <br>
+        <div class="container">
+            <form action="/new_file" method="POST">{% csrf_token %}
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input placeholder="Filename" id="filename" name="file_name" type="text">
+                        <label for="filename">Filename</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input placeholder="Type" id="tpye" name="type" type="text">
+                        <label for="type">Type of programming lang</label>
+                    </div>
+                </div>
+                
+                <button class="btn" type="submit">Create new file</button>
+            </form>
+            <table>
+                <thead>
+                    <tr>
+                        <th>File name</th>
+                        <th>Type</th>
+                        <th>View File</th>
+                        <th>Delete File</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for code in codes %}
+                        <tr>
+                            <td>
+                                {{ code.file_name }}
+                            </td>
+                            <td>
+                                {{ code.type }}
+                            </td>
+                            <td>
+                                <form action="/view" method="GET">
+                                    <input type="hidden" name="id" value="{{ code.id }}">
+                                    <button class="btn" type="submit">View</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="/delete/?id={{ code.id }}" method="GET">
+                                    <input type="hidden" name="id" value="{{ code.id }}">
+                                    <button class="btn" type="submit">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('select');
+            var instances = M.FormSelect.init(elems, options);
+            });
+        </script>
+    </body>
+</html>

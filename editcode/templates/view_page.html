@@ -1,0 +1,41 @@
+<html lang="en">
+<head>
+<title>asd</title>
+<style type="text/css" media>
+    #editor { 
+        height: 500px;
+        width: 500;
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+
+<form action="/save_file" method="POST" id="f">{% csrf_token %}
+<input type="hidden" name="id" value="{{ code.id }}">
+<div id="editor" name="code">
+{{ code.text }}
+</div>
+<button type="submit" id="btnGO" class="btn">Save</button>
+</form>
+
+<script type="text/javascript">
+</script>
+
+<script src="https://pagecdn.io/lib/ace/1.4.12/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.resize();
+    editor.setTheme("ace/theme/monokai");
+    $(document).ready(function(){
+        $("#btnGO").click(function(){
+            console.info("hello");
+            $("#f").append("<input type='hidden' value='" + editor.getValue() + "' name='code'>");
+            $("#f").submit();
+        });
+    });
+</script>
+</body>
+</html>
